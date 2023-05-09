@@ -5,4 +5,6 @@ import com.example.ecommerce_shopping.R
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
+
+
 }

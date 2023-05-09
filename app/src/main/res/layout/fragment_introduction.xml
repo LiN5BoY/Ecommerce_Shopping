@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="@id/guidelineEllipseLeft"
         app:layout_constraintEnd_toEndOf="@id/guidelineEllipseRight"
         app:layout_constraintTop_toTopOf="@id/guidelineEllipseTop"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineEllipseBottom"
+        app:layout_constraintBottom_toBottomOf="    @id/guidelineEllipseBottom"
         android:background="@drawable/ellips"
         app:layout_constraintDimensionRatio="1:1"
         />
