@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".ToyStoryApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,7 +13,7 @@
         android:theme="@style/Theme.Ecommerce_Shopping"
         tools:targetApi="31">
         <activity
-            android:name=".ShoppingActivity"
+            android:name=".activities.ShoppingActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginRegisterActivity"
