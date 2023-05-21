@@ -12,8 +12,8 @@
         android:label="IntroductionFragment"
         tools:layout="@layout/fragment_introduction">
         <action
-            android:id="@+id/action_introductionFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_introductionFragment_to_accontOptionsFragment"
+            app:destination="@id/accontOptionsFragment" />
     </fragment>
 
     <fragment
@@ -33,6 +33,18 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accontOptionsFragment"
+        android:name="com.example.ecommerce_shopping.fragments.loginRegister.AccontOptionsFragment"
+        android:label="AccontOptionsFragment"
+        tools:layout="@layout/fragment_account_option">
+        <action
+            android:id="@+id/action_accontOptionsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_accontOptionsFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
 </navigation>

@@ -70,6 +70,8 @@ class RegisterFragment : Fragment() {
                         //ERROR时停止动画
                         binding.buttonLoginRegister.revertAnimation()
                     }
+                    //kotlin中的Unit相当于Java中的Void，并且可以写 return Unit
+                    else -> Unit
                 }
             }
         }

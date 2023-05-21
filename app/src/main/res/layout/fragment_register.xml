@@ -178,7 +178,9 @@
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/edRegisterPassword" />
+            app:layout_constraintTop_toBottomOf="@id/edRegisterPassword"
+            app:spinning_bar_color="@color/white"
+            />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLoginRight"

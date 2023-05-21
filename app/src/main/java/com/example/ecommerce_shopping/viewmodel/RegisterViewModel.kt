@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 //dagger
@@ -18,12 +19,21 @@ class RegisterViewModel @Inject constructor(
     //MutableStateFlow
     //MutableStateFlow类是一个可变的单向数据流
     //可以让我们在应用程序的不同部分之间共享数据，当状态发生变化时，所有订阅该状态的观察者将会被通知。
-    private val _register = MutableStateFlow<Resource<FirebaseUser>>(Resource.Loading())
+    private val _register = MutableStateFlow<Resource<FirebaseUser>>(Resource.Unspecified())
     //Flow 按顺序发出多个值的数据流
     val register : Flow<Resource<FirebaseUser>> = _register
 
 
     fun createAccountWithEmailAndPassword(user : User,password : String){
+        //我们可以使用 runBlocking 函数，构建一个主协程，从而调试我们的协程代码。
+        runBlocking {
+            //在 Flow 流构建器 中 , 每次 调用 FlowCollector#emit 发射元素时 ,
+            //都会执行一个 ensureActive 检测 , 检测当前的流是否取消,
+            //因此,在 flow 流构建器中 ,
+            //循环执行的 FlowCollector#emit 发射操作,是可以取消的 ;
+            _register.emit(Resource.Loading())
+        }
+
         firebaseAuth.createUserWithEmailAndPassword(user.email,password)
             .addOnSuccessListener {
                 //it 表示当前正在处理的对象或变量
