@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/buttonLoginRegister"
+            app:layout_constraintTop_toBottomOf="@id/buttonRegister"
             android:src="@drawable/facebook_login"
             />
 
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
-            app:layout_constraintTop_toBottomOf="@id/buttonLoginRegister"
+            app:layout_constraintTop_toBottomOf="@id/buttonRegister"
             android:src="@drawable/google_login"
             />
 
@@ -169,14 +169,13 @@
         CircularProgressButton 环形进度按钮
         -->
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-            android:id="@+id/buttonLoginRegister"
+            android:id="@+id/buttonRegister"
             style="@style/blueButtonStyle"
             android:layout_width="0dp"
             android:layout_height="@dimen/mediumButtonHeight"
             android:layout_marginTop="30dp"
             android:text="Register"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
             app:layout_constraintTop_toBottomOf="@id/edRegisterPassword"
             app:spinning_bar_color="@color/white"

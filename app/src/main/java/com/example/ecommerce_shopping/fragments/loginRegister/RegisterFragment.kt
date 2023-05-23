@@ -11,10 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import com.example.ecommerce_shopping.data.User
 
 import com.example.ecommerce_shopping.databinding.FragmentRegisterBinding
+import com.example.ecommerce_shopping.util.RegisterValidation
 import com.example.ecommerce_shopping.util.Resource
 import com.example.ecommerce_shopping.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.withContext
 
 private val TAG = "RegisterFragment"
 
@@ -41,7 +44,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            buttonLoginRegister.setOnClickListener {
+            buttonRegister.setOnClickListener {
                 val user = User(
                     //使用 trim() 函数来删除 EditText 或 TextView 中用户输入的前导和尾随空格。
                     edRegisterFirstName.text.toString().trim(),
@@ -53,22 +56,26 @@ class RegisterFragment : Fragment() {
             }
         }
 
+        // * lifecycle 的主要作用是，让其他组件可以监听 Activity/Fragment 的生命周期，其好处如下
+        // * 1、以前 Activity/Fragment 需要在不同的生命周期对一些组件做相应的操作，现在改为由组件自己处理，从而降低了耦合性
+        // * 2、避免一些组件持有 Activity/Fragment 后不释放导致的内存泄漏问题
         lifecycleScope.launchWhenStarted {
+            //通过 collect() 收集数据，最终更新界面
             viewModel.register.collect {
                 when (it) {
                     is Resource.Loading -> {
                         //调用View的startAnimation()方法启动动画
-                        binding.buttonLoginRegister.startAnimation()
+                        binding.buttonRegister.startAnimation()
                     }
                     is Resource.Success -> {
                         Log.d("test",it.message.toString())
                         //停止动画
-                        binding.buttonLoginRegister.revertAnimation()
+                        binding.buttonRegister.revertAnimation()
                     }
                     is Resource.Error -> {
                         Log.d(TAG,it.message.toString())
                         //ERROR时停止动画
-                        binding.buttonLoginRegister.revertAnimation()
+                        binding.buttonRegister.revertAnimation()
                     }
                     //kotlin中的Unit相当于Java中的Void，并且可以写 return Unit
                     else -> Unit
@@ -76,6 +83,28 @@ class RegisterFragment : Fragment() {
             }
         }
 
+
+        lifecycleScope.launchWhenStarted {
+            //通过 collect() 收集数据，最终更新界面
+            viewModel.validation.collect { validation ->
+                if(validation.email is RegisterValidation.Failed){
+                    withContext(Dispatchers.Main){
+                        binding.edRegisterEmail.apply {
+                            requestFocus()
+                            error = validation.email.message
+                        }
+                    }
+                }
+                if(validation.password is RegisterValidation.Failed){
+                    withContext(Dispatchers.Main){
+                        binding.edRegisterPassword.apply{
+                            requestFocus()
+                            error = validation.password.message
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
