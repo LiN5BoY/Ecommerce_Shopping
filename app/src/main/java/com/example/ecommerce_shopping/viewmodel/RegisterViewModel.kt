@@ -23,15 +23,15 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-
+    private val db : FirebaseFirestore
 ) : ViewModel() {
     //MutableStateFlow
     //MutableStateFlow类是一个可变的单向数据流
     //可以让我们在应用程序的不同部分之间共享数据，当状态发生变化时，所有订阅该状态的观察者将会被通知。
-    private val _register = MutableStateFlow<Resource<FirebaseUser>>(Resource.Unspecified())
+    private val _register = MutableStateFlow<Resource<User>>(Resource.Unspecified())
 
     //Flow 按顺序发出多个值的数据流
-    val register: Flow<Resource<FirebaseUser>> = _register
+    val register: Flow<Resource<User>> = _register
 
     private val _validation = Channel<RegisterFieldsState>()
     val validation = _validation.receiveAsFlow()
@@ -57,7 +57,7 @@ class RegisterViewModel @Inject constructor(
                     it.user?.let {
                         //如果 user 不为 null
                         //则会执行 let 函数中的操作，否则 let 函数不会执行，避免了 null 引用异常。
-//                        saveUserInfo(it.uid)
+                        saveUserInfo(it.uid,user)
 //                    _register.value = Resource.Success(it)
                     }
                     //成功情况
@@ -88,7 +88,15 @@ class RegisterViewModel @Inject constructor(
         return shouldRegister
     }
 
-//    private fun saveUserInfo(userUID: String) {
-//        db.collection(USER_COLLECTION)
-//    }
+    private fun saveUserInfo(userUid : String,user : User) {
+        db.collection(USER_COLLECTION)
+            //for document reference
+            .document(userUid)
+            .set(user)
+            .addOnSuccessListener {
+                _register.value = Resource.Success(user)
+            }.addOnFailureListener{
+                _register.value = Resource.Error(it.message.toString())
+            }
+    }
 }

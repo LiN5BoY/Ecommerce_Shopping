@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@id/edEmailLogin"
             style="@style/editText"
             android:hint="Password"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:layout_marginTop="15dp"
             />
 
@@ -147,17 +147,21 @@
             android:src="@drawable/facebook_login"
             />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/buttonLoginLogin"
             style="@style/blueButtonStyle"
             android:layout_width="0dp"
             android:layout_height="@dimen/mediumButtonHeight"
             android:layout_marginTop="48dp"
-            android:text="Register"
+            android:text="Login"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
-            app:layout_constraintHorizontal_bias="0.0"
+
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/tvForgetPasswordLogin" />
+            app:layout_constraintTop_toBottomOf="@id/tvForgetPasswordLogin"
+            app:spinning_bar_color="@color/white"
+
+
+            />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLoginRight"
