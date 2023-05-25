@@ -26,6 +26,8 @@ class LoginViewModel @Inject constructor(
     private val _login = MutableSharedFlow<Resource<FirebaseUser>>()
     val login = _login.asSharedFlow()
 
+    private val _resetPassword = MutableSharedFlow<Resource<String>>()
+    val resetPassword = _resetPassword.asSharedFlow()
 
     fun login(email : String,password : String){
         viewModelScope.launch { _login.emit(Resource.Loading()) }
@@ -45,6 +47,28 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
+    fun resetPassword(email : String){
+        //ViewModel 会有一个扩展属性 viewModelScope，其可以将协程绑定到 ViewModel 生命周期
+        //即 ViewModel 销毁时，协程也会自动被取消
+        viewModelScope.launch {
+            _resetPassword.emit(Resource.Loading())
+        }
+        firebaseAuth
+            .sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                viewModelScope.launch {
+                    _resetPassword.emit(Resource.Success(email))
+                }
+            }
+            .addOnFailureListener {
+                viewModelScope.launch {
+                    _resetPassword.emit(Resource.Error(it.message.toString()))
+                }
+            }
+    }
+
+
 
 
 }

@@ -14,10 +14,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.ecommerce_shopping.R
 import com.example.ecommerce_shopping.activities.ShoppingActivity
 import com.example.ecommerce_shopping.databinding.FragmentLoginBinding
+import com.example.ecommerce_shopping.dialog.setupButtonSheetDialog
 import com.example.ecommerce_shopping.util.Resource
 import com.example.ecommerce_shopping.viewmodel.LoginViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 //使用依赖注入
 @AndroidEntryPoint
@@ -50,6 +53,31 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 viewModel.login(email,password)
             }
         }
+
+        binding.tvForgetPasswordLogin.setOnClickListener {
+            setupButtonSheetDialog{email ->
+                viewModel.resetPassword(email)
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.resetPassword.collect{
+                when(it){
+                    is Resource.Loading ->{
+
+                    }
+                    is Resource.Success ->{
+                        //Snackbar 处理用户的点击事件
+                        Snackbar.make(requireView(),"Reset link was sent to your email",Snackbar.LENGTH_LONG).show()
+                    }
+                    is Resource.Error ->{
+                        Snackbar.make(requireView(),"Error : ${it.message}",Snackbar.LENGTH_LONG).show()
+                    }
+                    else -> Unit//void
+                }
+            }
+        }
+
         // * lifecycle - 生命周期
         // * lifecycle 的主要作用是，让其他组件可以监听 Activity/Fragment 的生命周期，其好处如下
         // * 1、以前 Activity/Fragment 需要在不同的生命周期对一些组件做相应的操作，现在改为由组件自己处理，从而降低了耦合性
