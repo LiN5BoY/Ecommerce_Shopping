@@ -1,5 +1,8 @@
 package com.example.ecommerce_shopping.di
 
+import android.app.Application
+import android.content.Context.MODE_PRIVATE
+import com.example.ecommerce_shopping.util.Constants.INTRODUCTION_SP
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -29,4 +32,12 @@ object AppModule {
     @Singleton
     fun provideFirebaseFireStoreDatabase() = Firebase.firestore
 
+
+    @Provides
+    fun provideIntroductionSP(
+        application : Application
+        ) = application.getSharedPreferences(INTRODUCTION_SP,MODE_PRIVATE)
+    // SharedPreferences存储是一种轻量级的数据存储方式
+    // 它屏蔽了对底层文件的操作，通过为程序开发人员提供简单的编程接口，实现以简单的方式对数据进行永久保存。这种方式主要对少量
+    // 的数据进行保存
 }

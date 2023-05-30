@@ -20,6 +20,8 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 //dagger
+//Hilt把Dagger 手动创建Component 改成了预定义的Component，且自动集成到Android应用程序的各个生命周期中。
+//通过注解的方式@InstallIn(xxxComponent.class)进行绑定
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
