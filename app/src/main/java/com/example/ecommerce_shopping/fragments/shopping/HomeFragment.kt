@@ -13,8 +13,6 @@ import com.example.ecommerce_shopping.fragments.categories.ChiToyCategoryFragmen
 import com.example.ecommerce_shopping.fragments.categories.EngToyCategoryFragment
 import com.example.ecommerce_shopping.fragments.categories.JapToyCategoryFragment
 import com.example.ecommerce_shopping.fragments.categories.MainCategroyFragment
-import com.example.ecommerce_shopping.fragments.categories.MovieToyCategoryFragment
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment(R.layout.fragment_home){
@@ -37,7 +35,6 @@ class HomeFragment : Fragment(R.layout.fragment_home){
             AmeToyCategoryFragment(),
             ChiToyCategoryFragment(),
             EngToyCategoryFragment(),
-            MovieToyCategoryFragment()
             )
         //getChildFragmentManager是Fragment中的方法，不管是app包还是v4包，都有的方法
         //获取的是当前这个Fragment中子一级的Fragment的管理器，比如Activity中有个Fragment，Fragment里面又有Fragment。
@@ -50,7 +47,6 @@ class HomeFragment : Fragment(R.layout.fragment_home){
                 2 -> tab.text = "American Toys"
                 3 -> tab.text = "Chinese Toys"
                 4 -> tab.text = "English Toys"
-                5 -> tab.text = "Movie Toys"
             }
             //attach 调用生命周期
         }.attach()

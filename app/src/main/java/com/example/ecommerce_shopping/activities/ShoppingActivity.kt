@@ -6,7 +6,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ecommerce_shopping.R
 import com.example.ecommerce_shopping.databinding.ActivityShoppingBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShoppingActivity : AppCompatActivity() {
 
     //惰性初始化是一种常见的模式，直到第一次访问该属性的时候，才根据需要创建对象的一部分
