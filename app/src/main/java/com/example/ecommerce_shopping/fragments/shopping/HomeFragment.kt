@@ -36,6 +36,10 @@ class HomeFragment : Fragment(R.layout.fragment_home){
             ChiToyCategoryFragment(),
             EngToyCategoryFragment(),
             )
+
+        //取消滑动到另外子窗口的机制
+        binding.viewpagerHome.isUserInputEnabled = false
+
         //getChildFragmentManager是Fragment中的方法，不管是app包还是v4包，都有的方法
         //获取的是当前这个Fragment中子一级的Fragment的管理器，比如Activity中有个Fragment，Fragment里面又有Fragment。
         val viewPager2Adapter = HomeViewpagerAdapter(categoriesFraments,childFragmentManager,lifecycle)
