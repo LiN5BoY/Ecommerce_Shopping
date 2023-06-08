@@ -12,6 +12,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce_shopping.R
@@ -20,6 +21,7 @@ import com.example.ecommerce_shopping.adapters.BestProductsAdapter
 import com.example.ecommerce_shopping.adapters.SpecialProductsAdapter
 import com.example.ecommerce_shopping.databinding.FragmentMainCategoryBinding
 import com.example.ecommerce_shopping.util.Resource
+import com.example.ecommerce_shopping.util.showBottomNavigationView
 import com.example.ecommerce_shopping.viewmodel.MainCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -51,6 +53,29 @@ class MainCategroyFragment : Fragment(R.layout.fragment_main_category){
         setupSpecialProductsRv()
         setupBestDealsRv()
         setupBestProductsRv()
+
+
+        specialProductsAdapter.onClick = {
+            val b = Bundle().apply { putParcelable("product",it) }
+            // findNavController() 函数返回一个 NavController 对象，该对象可用于管理应用程序中的导航栈。
+            // 使用该函数，您可以向导航控制器发送导航请求，例如从主屏幕切换到应用程序的特定页面或从应用程序的特定页面返回到主屏幕。
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
+
+        bestDealsAdapter.onClick = {
+            val b = Bundle().apply { putParcelable("product",it) }
+            // findNavController() 函数返回一个 NavController 对象，该对象可用于管理应用程序中的导航栈。
+            // 使用该函数，您可以向导航控制器发送导航请求，例如从主屏幕切换到应用程序的特定页面或从应用程序的特定页面返回到主屏幕。
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
+
+        bestProductsAdapter.onClick = {
+            val b = Bundle().apply { putParcelable("product",it) }
+            // findNavController() 函数返回一个 NavController 对象，该对象可用于管理应用程序中的导航栈。
+            // 使用该函数，您可以向导航控制器发送导航请求，例如从主屏幕切换到应用程序的特定页面或从应用程序的特定页面返回到主屏幕。
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
+
 
         lifecycleScope.launchWhenCreated {
             // collectLatest() 方法用于对序列中的元素进行聚合操作，并返回最新的结果
@@ -170,4 +195,10 @@ class MainCategroyFragment : Fragment(R.layout.fragment_main_category){
             adapter = specialProductsAdapter
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
+    }
+
 }

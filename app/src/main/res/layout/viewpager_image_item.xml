@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/imageProductDetails"
+    android:scaleType="fitXY"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <!--
+        scaleType="fitXY" 是一个用于控制视图在拉伸或缩放时的呈现方式的选项。
+        它的值意味着视图将被拉伸以填满父视图，同时不会使任何一方的尺寸小于另一方。
+    -->
+
+</ImageView>
